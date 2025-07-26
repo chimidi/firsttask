@@ -13,7 +13,7 @@
 function name() 
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "https://firsttask-jmub.onrender.com//api/loginstatus";
+	var url = "https://firsttask-production.up.railway.app/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
