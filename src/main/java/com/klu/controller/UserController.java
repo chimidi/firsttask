@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.klu.manger.Roomatesmodel;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class UserController {
 	

@@ -224,7 +224,7 @@ inputs.forEach((input, index) => {
 		    return;
 		  }// Ensure n1 is a string
 	  var xhtml = new XMLHttpRequest();
-	  var url = "https://firsttask-jmub.onrender.com/api/login/"+codeInt+"/"+nameStr;
+	  var url = "http://localhost:8080/api/login/"+codeInt+"/"+nameStr; // if no SSL enabled on server
 		xhtml.open("GET", url, true);
 		xhtml.setRequestHeader('Content-Type','application/json'); 
 		xhtml.send();
