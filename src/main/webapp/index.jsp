@@ -135,7 +135,7 @@
 </head>
 <body>
   <header>
-    <h1  style="position:relative;top:240px;color:black;"  >HOMEIN <i class="fa-solid fa-house"></i></h1>
+    <h1  style="position:absolute;top:250px;left:32%;color:black;"  >HOMEIN <i class="fa-solid fa-house"></i></h1>
   </header>
    <br>
   <main>
