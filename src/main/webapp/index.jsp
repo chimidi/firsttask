@@ -134,12 +134,7 @@
   </style>
 </head>
 <body>
-  <header>
     <h1  style="position:absolute;top:250px;left:32%;color:black;"  >HOMEIN <i class="fa-solid fa-house"></i></h1>
-  </header>
-   <br>
-  <main>
-    
     <div id="block1">
     <form>
           <input type="radio" name="person" id="alice" value="lokesh">
@@ -246,7 +241,5 @@ inputs.forEach((input, index) => {
   }
   
 </script>
-    
-  </main>
 </body>
 </html>
