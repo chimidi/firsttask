@@ -27,19 +27,17 @@
       header {
         text-align: center;
       }
-      #block1{
-        height:300px;
-        width:65%;
-        background-color: #dbe0e0 ;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0px 4px 5px 1px;
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
+      #block1 {
+  background-color: #dbe0e0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 5px 1px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+  margin-top: 20px;
+}
+
         
       input[type="radio"] {
         display: none;
@@ -71,18 +69,17 @@
     }
 
     #popup {
-      display: none;
-      background-color: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      max-width: 300px;
-     position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      text-align: center;
-    }
+  display: none; /* Hidden by default */
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 350px;
+  margin-top: 20px;
+  text-align: center;
+}
+
 
     #popup input[type="password"] {
       padding: 10px;
@@ -131,10 +128,25 @@
       border-radius: 6px;
       cursor: pointer;
     }
+    #reg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: white;
+  position: relative;
+  padding: 20px;
+  text-align: center;
+}
+   
   </style>
 </head>
 <body>
-    <h1  style="position:absolute;top:250px;left:32%;color:black;"  >HOMEIN <i class="fa-solid fa-house"></i></h1>
+  <div id="reg">
+<h1 style="font-size: 2rem; color: black; margin-bottom: 20px;">
+  HOMEIN <i class="fa-solid fa-house"></i>
+</h1>
     <div id="block1">
     <form>
           <input type="radio" name="person" id="alice" value="lokesh">
@@ -155,6 +167,7 @@
     <div id="popup">
   <h2 id="selectedName"></h2>
   <p id="error">Enter your 4-digit password:</p>
+  
   <div class="digit-inputs">
     <input type="text" maxlength="1" inputmode="numeric" />
     <input type="text" maxlength="1" inputmode="numeric" />
@@ -162,6 +175,7 @@
     <input type="text" maxlength="1" inputmode="numeric" />
   </div>
   <button onclick=login() >LOGIN</button>
+</div>
 </div>
 
 <script>
