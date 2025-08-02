@@ -23,35 +23,187 @@
         padding: 20px;
       }
 
-     header {
-  width: 100%;
-  height: 80px;
-  background-color: #62BAF0;
-  color: white;
-  text-align: center;
-  position: absolute;
-  top: 0;
-  left:0px;
-  font-size: 20px;
-  line-height: 60px; /* vertical centering */
+   header {
+      width: 100%;
+      height: 60px;
+      background-color: #62BAF0;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      padding: 0 15px;
+    }
+
+    .header-content h1 {
+      font-size: 18px;
+      color: black;
+    }
+    .welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 18px;
+}
+  .all-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 130px;
+  gap: 40px;
 }
 
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.item-box {
+  width: 140px;
+  text-align: center;
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.cart-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background-color: #007BFF; /* blue background */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 80px auto; /* centers horizontally */
+  animation: bounce 1.2s infinite;
+}
+
+.cart-wrapper i {
+  color: white;
+  font-size: 36px;
+  z-index: 1;
+}
+
+/* Count badge on top-right */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  animation: bounce 1.2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.note {
+  text-align: center;
+  margin-top: -40px;
+  font-size: 16px;
+}
+
+.note button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.note button:hover {
+  background-color: darkgreen;
+}
+
+
+
 body {
-  padding-top: 90px; /* Prevent content from being hidden under the header */
+  padding-top: 60px; /* Prevent content from being hidden under the header */
 }
 }
 </style>
 </head>
 <body onload="name()">
 <header>
-<h1 style="font-size: 2rem; color: black; margin-bottom: 20px;"><i class="fa-solid fa-house"></i>  HOMEIN </h1>
+
+<div class="header-content">
+    <h1><i class="fa-solid fa-house"></i> HOMEIN</h1>
+    <i style="font-size:10px;" class="fa-solid fa-right-from-bracket"> Logout</i>
+  </div>
 </header>
-<h5 id="name"></h5>
+
+<div class="welcome-container">
+  <h5>Welcome</h5>
+  <h5 id="name"></h5>
+</div>
+<br>
+<div>
+ <marquee>There is no text right not. The text will automatically delete after 24hrs </marquee>
+</div>
+<div class="all-container">
+  <div class="row">
+    <div class="item-box" id="vegetables">
+      <img src="./images/vegetables.png" alt="Vegetable Icon" width="100" height="100">
+      <h3>Vegetables</h3>
+    </div>
+
+    <div class="item-box" id="groceries">
+      <img src="./images/basket.png" alt="Groceries Icon" width="100" height="100">
+      <h3>Groceries</h3>
+    </div>
+  </div>
+
+  <div class="item-box" id="accessories">
+    <img src="./images/bookshelf.png" alt="Accessories Icon" width="100" height="100">
+    <h3>Accessories</h3>
+  </div>
+</div>
+
+<div class="cart-wrapper">
+  <i class="fa-solid fa-cart-shopping"></i>
+  <span class="cart-count">1</span>
+</div>
+
+<div class="note">
+<h5>Leave a Note <br><button>Note</button></h5>
+</div>
+
 <script>
 function name() 
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "http://localhost:8080/api/loginstatus";
+	var url = "https://firsttask-production.up.railway.app/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
@@ -60,7 +212,7 @@ function name()
 		if(this.readyState == 4 && this.status == 200)
 		{
 			     if(this.responseText!="index.jsp")
-		         document.getElementById("name").innerHTML ="hi " + this.responseText;
+		         document.getElementById("name").innerHTML =this.responseText;
 			     else
 			    	window.location.replace(this.responseText);
 				
