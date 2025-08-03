@@ -213,7 +213,7 @@ body {
 function name() 
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "http://localhost:8080/api/loginstatus";
+	var url = "https://firsttask-production.up.railway.app/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
