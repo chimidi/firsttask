@@ -16,6 +16,11 @@ public class Roomatesmodel {
 	{
 		return pr.getid(pass, name);
 	}
+	
+	public int getid(String name)
+	{
+		return pr.fid(name);
+	}
 
 
 }

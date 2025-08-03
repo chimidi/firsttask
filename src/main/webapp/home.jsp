@@ -76,7 +76,16 @@
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border: none; /* Remove default button border */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.item-box:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 .cart-wrapper {
   position: relative;
   width: 70px;
@@ -173,10 +182,11 @@ body {
 </div>
 <div class="all-container">
   <div class="row">
-    <div class="item-box" id="vegetables">
-      <img src="./images/vegetables.png" alt="Vegetable Icon" width="100" height="100">
-      <h3>Vegetables</h3>
-    </div>
+   <button class="item-box" id="vegetables" onclick="reveg()">
+  <img src="./images/vegetables.png" alt="Vegetable Icon" width="100" height="100">
+  <h3>Vegetables</h3>
+</button>
+
 
     <div class="item-box" id="groceries">
       <img src="./images/basket.png" alt="Groceries Icon" width="100" height="100">
@@ -203,7 +213,7 @@ body {
 function name() 
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "https://firsttask-production.up.railway.app/api/loginstatus";
+	var url = "http://localhost:8080/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
@@ -218,6 +228,11 @@ function name()
 				
 		}
 	};
+	
+}
+
+function reveg() {
+	window.location.replace("vegetable.jsp");
 }
 </script>
 </body>
