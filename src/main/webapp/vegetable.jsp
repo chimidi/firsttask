@@ -366,7 +366,7 @@ let loggedInUserName = null;
 function fetchLoggedInUserName()
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "http://localhost:8080/api/loginstatus";
+	var url = "https://firsttask-production.up.railway.app/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function historylist() {
 	  var xhttp = new XMLHttpRequest();
-	  var url = "http://localhost:8080/api/getitems";
+	  var url = "https://firsttask-production.up.railway.app/api/getitems";
 	  xhttp.open("GET", url, true);
 	  xhttp.setRequestHeader('Content-Type', 'application/json');
 	  xhttp.send();
@@ -638,7 +638,7 @@ function submitNewItem() {
 
     // --- Start of AJAX call to backend ---
     var xhttp = new XMLHttpRequest();
-    var url = "http://localhost:8080/api/items"; // New API endpoint to create item
+    var url = "https://firsttask-production.up.railway.app/api/items"; // New API endpoint to create item
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
