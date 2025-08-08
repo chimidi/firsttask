@@ -5,10 +5,12 @@
 <head>
 <script src="https://kit.fontawesome.com/3cbf1090e8.js" crossorigin="anonymous"></script>
 <meta charset="ISO-8859-1">
-<title>Vegetables</title>
+<title>Accessories</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
+    /* Add your CSS styles here. You can copy most of them from vegetable.jsp, 
+       as the layout for displaying items and modals will be largely the same. */
+       * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -301,7 +303,7 @@
 	</div>
 	<br>
 
-    <h3 style="text-align:center">VEGETABLES <i class="fa-solid fa-leaf"></i></h3>
+    <h3 style="text-align:center">ACCESSORIES <i class="fa-solid fa-gem"></i></h3>
     <br>
 	<div id="container">
 
@@ -431,7 +433,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function historylist() {
 	  var xhttp = new XMLHttpRequest();
-	  var url = "https://firsttask-jmub.onrender.com/api/getitems";
+	  // *** IMPORTANT: API endpoint for Accessories ***
+	  var url = "https://firsttask-jmub.onrender.com/api/accessories"; 
 	  xhttp.open("GET", url, true);
 	  xhttp.setRequestHeader('Content-Type', 'application/json');
 	  xhttp.send();
@@ -443,7 +446,7 @@ function historylist() {
 	      var data = JSON.parse(this.responseText);
 
 	      if (!Array.isArray(data) || data === null || data.length === 0) {
-	          display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #666;">No items to display. Add a new item!</div>';
+	          display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #666;">No accessories to display. Add a new item!</div>';
 	      } else {
 	        var html = "";
 
@@ -473,8 +476,8 @@ function historylist() {
 	        display.innerHTML = html;
 	      }
 	    } else if (this.readyState === 4 && this.status !== 200) {
-            console.error("Failed to fetch items. Status:", this.status);
-            display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #dc3545;">Error loading items. Please try again.</div>';
+            console.error("Failed to fetch accessories. Status:", this.status);
+            display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #dc3545;">Error loading accessories. Please try again.</div>';
         }
 	  };
 	}
@@ -499,22 +502,23 @@ function handleConfirmUpdate() {
     }
 
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/updateitems/" + currentItemId; 
+    // *** IMPORTANT: API endpoint for updating Accessories ***
+    var url = "https://firsttask-jmub.onrender.com/api/accessories/update/" + currentItemId; 
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
-                alert("Item '" + currentItemName + "' marked as not available.");
+                alert("Accessory '" + currentItemName + "' marked as not available.");
                 closePopup();
                 historylist();
             } else if (this.status === 404) {
-                alert("Error: Item not found. " + this.responseText);
-                console.error("Error updating item:", this.responseText);
+                alert("Error: Accessory not found. " + this.responseText);
+                console.error("Error updating accessory:", this.responseText);
             } else {
-                alert("Error updating item: " + this.status + " " + this.responseText);
-                console.error("Error updating item:", this.responseText);
+                alert("Error updating accessory: " + this.status + " " + this.responseText);
+                console.error("Error updating accessory:", this.responseText);
             }
         }
     };
@@ -615,6 +619,7 @@ function submitNewItem() {
         }
     }
 
+    // *** IMPORTANT: Prepare the DTO specifically for AccessoryCreationRequest ***
     const newItemData = {
         name: itemName,
         available: isAvailable,
@@ -623,22 +628,22 @@ function submitNewItem() {
         visibleToUsers: selectedVisibilityUserIds
     };
 
-    console.log("New Item Data to be sent:", newItemData);
+    console.log("New Accessory Data to be sent:", newItemData);
 
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/items";
+    var url = "https://firsttask-jmub.onrender.com/api/accessories"; // Specific endpoint for accessories
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200 || this.status === 201) {
-                alert("Item added successfully!");
+                alert("Accessory added successfully!");
                 closeAddItemModal();
                 historylist();
             } else {
-                alert("Error adding item: " + this.status + " " + this.responseText);
-                console.error("Error adding item:", this.responseText);
+                alert("Error adding accessory: " + this.status + " " + this.responseText);
+                console.error("Error adding accessory:", this.responseText);
             }
         }
     };

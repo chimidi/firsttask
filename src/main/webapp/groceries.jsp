@@ -5,15 +5,17 @@
 <head>
 <script src="https://kit.fontawesome.com/3cbf1090e8.js" crossorigin="anonymous"></script>
 <meta charset="ISO-8859-1">
-<title>Vegetables</title>
+<title>Groceries</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* Your existing CSS styles go here (make sure they are copied from vegetable.jsp if not already there) */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    /* Mobile styles */
     @media only screen and (max-width: 480px) {
       body {
         background-color: white;
@@ -97,10 +99,10 @@
     color: white;
   }
   .available-btn {
-    background-color: #28a745;
+    background-color: #28a745; /* green */
   }
   .not-available {
-    background-color: #dc3545;
+    background-color: #dc3545; /* red */
     color: white;
     padding: 8px 20px;
     border-radius: 6px;
@@ -113,7 +115,8 @@
     font-size: 16px;
   }
 
-   #popupModal {
+   /* Existing Popup styles (for "Not Available" confirmation) */
+  #popupModal {
     display: none;
     position: fixed;
     z-index: 9999;
@@ -161,6 +164,7 @@
   padding-top: 65px;
 }
 
+/* Style for the green button at the bottom */
 #bottomGreenButton {
     display: block;
     width: fit-content;
@@ -182,13 +186,14 @@
     background-color: #218838;
 }
 
+/* NEW: Styles for the Add Item Modal */
 #addItemModal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
-    z-index: 10000;
+    z-index: 10000; /* Higher than existing popupModal */
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.6); /* Darker overlay */
     justify-content: center;
     align-items: center;
 }
@@ -198,9 +203,9 @@
     padding: 30px;
     border-radius: 8px;
     max-width: 400px;
-    width: 90%;
+    width: 90%; /* Responsive width */
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    text-align: left;
+    text-align: left; /* Align form labels to the left */
 }
 
 #addItemContent h2 {
@@ -222,7 +227,7 @@
 
 #addItemForm input[type="text"],
 #addItemForm select {
-    width: calc(100% - 22px);
+    width: calc(100% - 22px); /* Full width minus padding and border */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -231,26 +236,27 @@
 
 #addItemForm input[type="checkbox"] {
     margin-right: 8px;
-    transform: scale(1.2);
+    transform: scale(1.2); /* Make checkbox slightly larger */
 }
 
 #addItemForm .checkbox-label {
     display: inline-block;
-    font-weight: normal;
+    font-weight: normal; /* Override bold for checkbox label */
 }
 
+/* NEW: Styles for the roomate checkboxes */
 .roommate-checkbox-group label {
-    display: inline-block;
-    margin-right: 15px;
-    font-weight: normal;
-    margin-bottom: 0;
+    display: inline-block; /* Keep label and checkbox on the same line */
+    margin-right: 15px; /* Space between checkboxes */
+    font-weight: normal; /* Don't bold the individual roomate names */
+    margin-bottom: 0; /* Adjust margin if needed */
 }
 .roommate-checkbox-group input[type="checkbox"] {
-    transform: scale(1.0);
+    transform: scale(1.0); /* Adjust size if necessary */
     margin-right: 5px;
 }
 .roommate-checkbox-group {
-    border: 1px solid #eee;
+    border: 1px solid #eee; /* Light border for the group */
     padding: 10px;
     border-radius: 4px;
     background-color: #f9f9f9;
@@ -258,7 +264,7 @@
 
 
 #addItemButtons {
-    text-align: right;
+    text-align: right; /* Align buttons to the right */
     margin-top: 25px;
 }
 
@@ -268,16 +274,16 @@
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 10px; /* Space between buttons */
 }
 
 #submitAddItemBtn {
-    background-color: #28a745;
+    background-color: #28a745; /* Green for submit */
     color: white;
 }
 
 #cancelAddItemBtn {
-    background-color: #6c757d;
+    background-color: #6c757d; /* Gray for cancel */
     color: white;
 }
 </style>
@@ -296,13 +302,14 @@
 	  <ul>
 	    <li>If it is <span style="color:green;">GREEN</span>, it means the item is available. If not, just click on it to mark it as not available.</li>
 	    <li>If it is <span style="color:red;">RED</span>, it means the item is not available.</li>
-	    <li>It has name of the item and who purchased it.</li>
+	    <li>The letter at the end of the block indicates where in the cart the item belongs it reflects the first letter of the buyer's name.</li>
 	  </ul>
 	</div>
 	<br>
 
-    <h3 style="text-align:center">VEGETABLES <i class="fa-solid fa-leaf"></i></h3>
+     <h3 style="text-align:center">GROCERIES <i class="fa-solid fa-bowl-rice"></i></h3>
     <br>
+    
 	<div id="container">
 
 	</div>
@@ -320,10 +327,10 @@
 
 <div id="addItemModal">
   <div id="addItemContent">
-    <h2>Add New Item</h2>
+    <h2>Add New Grocery Item</h2>
     <form id="addItemForm">
       <div>
-        <label for="itemName">Item Name:</label>
+        <label for="itemName">Grocery Name:</label>
         <input type="text" id="addItemName" required>
       </div>
       <div>
@@ -359,30 +366,7 @@
 </body>
 <script type="text/javascript">
 
-let loggedInUserName = null;
-function fetchLoggedInUserName()
-{
-	var xhtml = new XMLHttpRequest();
-	var url = "https://firsttask-jmub.onrender.com/api/loginstatus";
-	xhtml.open("GET", url, true);
-	xhtml.setRequestHeader('Content-Type','application/json');
-	xhtml.send();
-	xhtml.onreadystatechange = function()
-	{
-		if(this.readyState == 4 && this.status == 200)
-		{
-			     if(this.responseText!="index.jsp")
-		            loggedInUserName = this.responseText;
-			     else
-			    	window.location.replace(this.responseText);
-
-		}
-	};
-}
-
-let currentItemId = null;
-let currentItemName = null;
-
+// This array now accurately reflects your Roomates table structure (int id, String name)
 const roommates = [
     { id: 1, name: "Lokesh" },
     { id: 2, name: "Tanusha" },
@@ -391,14 +375,21 @@ const roommates = [
 ];
 
 
+// Global variables for update function
+let currentGroceryId = null;
+let currentGroceryName = null;
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Popup buttons
     document.getElementById("closePopupBtn").addEventListener("click", closePopup);
     document.getElementById("confirmUpdateBtn").addEventListener("click", handleConfirmUpdate);
 
+    // Add Item Modal buttons
     document.getElementById("bottomGreenButton").addEventListener("click", openAddItemModal);
     document.getElementById("cancelAddItemBtn").addEventListener("click", closeAddItemModal);
-    document.getElementById("submitAddItemBtn").addEventListener("click", submitNewItem);
+    document.getElementById("submitAddItemBtn").addEventListener("click", submitNewGrocery);
 
+    // Listener for "Visible to All" checkbox
     const visibleToAllCheckbox = document.getElementById("visibleToAllCheckbox");
     const addVisibleToCheckboxesContainer = document.getElementById("addVisibleToCheckboxes");
 
@@ -421,100 +412,97 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Populate dropdowns and checkboxes on page load
     populatePurchasedByDropdown();
     populateVisibleToCheckboxes();
+    visibleToAllCheckbox.dispatchEvent(new Event('change')); // Trigger initial state
 
-    visibleToAllCheckbox.dispatchEvent(new Event('change'));
-
+    // Fetch and display groceries
+    historylist();
 });
 
 
 function historylist() {
-	  var xhttp = new XMLHttpRequest();
-	  var url = "https://firsttask-jmub.onrender.com/api/getitems";
-	  xhttp.open("GET", url, true);
-	  xhttp.setRequestHeader('Content-Type', 'application/json');
-	  xhttp.send();
+    var xhttp = new XMLHttpRequest();
+    var url = "https://firsttask-jmub.onrender.com/api/groceries";
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.send();
 
-	  var display = document.getElementById("container");
+    var display = document.getElementById("container");
 
-	  xhttp.onreadystatechange = function () {
-	    if (this.readyState === 4 && this.status === 200) {
-	      var data = JSON.parse(this.responseText);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            var data = JSON.parse(this.responseText);
 
-	      if (!Array.isArray(data) || data === null || data.length === 0) {
-	          display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #666;">No items to display. Add a new item!</div>';
-	      } else {
-	        var html = "";
+            if (!Array.isArray(data) || data === null || data.length === 0) {
+                display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #666;">No groceries to display. Add a new item!</div>';
+            } else {
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    var grocery = data[i];
+                    var purchaser = grocery.purchasedBy ? grocery.purchasedBy : "Unknown";
+                    var isAvailable = grocery.isAvailable;
+                    var availabilityText = isAvailable ? "AVAILABLE" : "NOT AVAILABLE";
+                    var availabilityColor = isAvailable ? "#d4edda" : "#f8d7da";
+                    var availabilityTextColor = isAvailable ? "#155724" : "#721c24";
 
-	        for (var i = 0; i < data.length; i++) {
-	          var item = data[i];
-	          var purchaser = item.purchasedBy ? item.purchasedBy.name : "Unknown";
-	          var isAvailable = item.available; // Access the correct property name from the JSON
-	          var availabilityText = isAvailable ? "AVAILABLE" : "NOT AVAILABLE";
-	          var availabilityColor = isAvailable ? "#d4edda" : "#f8d7da";
-	          var availabilityTextColor = isAvailable ? "#155724" : "#721c24";
+                    html += '<div style="display: flex; border: 1px solid black; border-radius: 8px; padding: 15px; margin-bottom: 20px; box-shadow: 1px 1px 3px rgba(0,0,0,0.15); align-items: center;">';
+                    html += '<div style="flex: 1; font-size: 18px; font-weight: bold; text-transform: uppercase;">' + grocery.name + '</div>';
 
-	          html += '<div style="display: flex; border: 1px solid black; border-radius: 8px; padding: 15px; margin-bottom: 20px; box-shadow: 1px 1px 3px rgba(0,0,0,0.15); align-items: center;">';
+                    if (isAvailable) {
+                        html += '<button onclick="updateGrocery(\'' + grocery.id + '\', \'' + grocery.name + '\')" style="flex: 1; background-color: ' + availabilityColor + '; color: ' + availabilityTextColor + '; padding: 8px 12px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer; font-size: 14px; text-align: center;">' + availabilityText + '</button>';
+                    } else {
+                        html += '<div style="flex: 1; background-color: ' + availabilityColor + '; color: ' + availabilityTextColor + '; padding: 8px 12px; border-radius: 4px; font-weight: bold; font-size: 14px; text-align: center;">' + availabilityText + '</div>';
+                    }
 
-	          html += '<div style="flex: 1; font-size: 18px; font-weight: bold; text-transform: uppercase;">' + item.name + '</div>';
-
-	          if (isAvailable) {
-	            html += '<button onclick="update(\'' + item.id + '\', \'' + item.name + '\')" style="flex: 1; background-color: ' + availabilityColor + '; color: ' + availabilityTextColor + '; padding: 8px 12px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer; font-size: 14px; text-align: center;">' + availabilityText + '</button>';
-	          } else {
-	            html += '<div style="flex: 1; background-color: ' + availabilityColor + '; color: ' + availabilityTextColor + '; padding: 8px 12px; border-radius: 4px; font-weight: bold; font-size: 14px; text-align: center;">' + availabilityText + '</div>';
-	          }
-
-	          html += '<div style="flex: 1; font-size: 14px; color: #555; text-align: right;">Purchased by: ' + purchaser + '</div>';
-
-	          html += '</div>';
-	        }
-
-	        display.innerHTML = html;
-	      }
-	    } else if (this.readyState === 4 && this.status !== 200) {
-            console.error("Failed to fetch items. Status:", this.status);
-            display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #dc3545;">Error loading items. Please try again.</div>';
+                    html += '<div style="flex: 1; font-size: 14px; color: #555; text-align: right;">Purchased by: ' + purchaser + '</div>';
+                    html += '</div>';
+                }
+                display.innerHTML = html;
+            }
+        } else if (this.readyState === 4 && this.status !== 200) {
+            console.error("Failed to fetch groceries. Status:", this.status);
+            display.innerHTML = '<div style="text-align: center; margin-top: 50px; color: #dc3545;">Error loading groceries. Please try again.</div>';
         }
-	  };
-	}
+    };
+}
 
-function update(id, itemName) {
-    currentItemId = id;
-    currentItemName = itemName;
+function updateGrocery(id, groceryName) {
+    currentGroceryId = id;
+    currentGroceryName = groceryName;
 
     var popupModal = document.getElementById("popupModal");
     var popupItemName = document.getElementById("popupItemName");
 
-    popupItemName.textContent = itemName;
-
+    popupItemName.textContent = groceryName;
     popupModal.style.display = "flex";
 }
 
 function handleConfirmUpdate() {
-    if (currentItemId === null) {
-        alert("No item selected for update.");
+    if (currentGroceryId === null) {
+        alert("No grocery selected for update.");
         closePopup();
         return;
     }
 
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/updateitems/" + currentItemId; 
+    var url = "https://firsttask-jmub.onrender.com/api/groceries/" + currentGroceryId + "/unavailable";
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
-                alert("Item '" + currentItemName + "' marked as not available.");
+                alert("Grocery '" + currentGroceryName + "' marked as not available.");
                 closePopup();
-                historylist();
+                historylist(); // Refresh the list
             } else if (this.status === 404) {
-                alert("Error: Item not found. " + this.responseText);
-                console.error("Error updating item:", this.responseText);
+                alert("Error: Grocery not found. " + this.responseText);
+                console.error("Error updating grocery:", this.responseText);
             } else {
-                alert("Error updating item: " + this.status + " " + this.responseText);
-                console.error("Error updating item:", this.responseText);
+                alert("Error updating grocery: " + this.status + " " + this.responseText);
+                console.error("Error updating grocery:", this.responseText);
             }
         }
     };
@@ -524,8 +512,8 @@ function handleConfirmUpdate() {
 function closePopup() {
     var popupModal = document.getElementById("popupModal");
     popupModal.style.display = "none";
-    currentItemId = null;
-    currentItemName = null;
+    currentGroceryId = null;
+    currentGroceryName = null;
 }
 
 function openAddItemModal() {
@@ -558,7 +546,7 @@ function populatePurchasedByDropdown() {
 
     roommates.forEach(roommate => {
         const option = document.createElement("option");
-        option.value = roommate.id;
+        option.value = roommate.id; // roommate.id is an int
         option.textContent = roommate.name;
         purchasedBySelect.appendChild(option);
     });
@@ -574,7 +562,7 @@ function populateVisibleToCheckboxes() {
         checkbox.type = "checkbox";
         checkbox.id = "roommate_" + roommate.id;
         checkbox.name = "visibleRoommates";
-        checkbox.value = roommate.id;
+        checkbox.value = roommate.id; // roommate.id is an int
 
         const label = document.createElement("label");
         label.htmlFor = "roommate_" + roommate.id;
@@ -586,71 +574,72 @@ function populateVisibleToCheckboxes() {
     });
 }
 
-function submitNewItem() {
-    const itemName = document.getElementById("addItemName").value;
+function submitNewGrocery() {
+    const groceryName = document.getElementById("addItemName").value;
     const isAvailable = document.getElementById("addIsAvailable").checked;
     const visibleToAll = document.getElementById("visibleToAllCheckbox").checked;
-    const purchasedBy = document.getElementById("addPurchasedBy").value;
+    const purchasedBy = document.getElementById("addPurchasedBy").value; // This will be a string number from HTML select
 
-    if (!itemName) {
-        alert("Please enter an item name.");
+    if (!groceryName) {
+        alert("Please enter a grocery name.");
         return;
     }
     if (!purchasedBy) {
-        alert("Please select who purchased the item.");
+        alert("Please select who purchased the grocery.");
         return;
     }
 
-    let selectedVisibilityUserIds = [];
+    let selectedVisibilityRoomateIds = [];
     if (!visibleToAll) {
         const roommateCheckboxes = document.querySelectorAll('#addVisibleToCheckboxes input[type="checkbox"]');
         roommateCheckboxes.forEach(checkbox => {
             if (checkbox.checked) {
-                selectedVisibilityUserIds.push(parseInt(checkbox.value));
+                // Parse to int, as backend expects Integer
+                selectedVisibilityRoomateIds.push(parseInt(checkbox.value));
             }
         });
-        if (selectedVisibilityUserIds.length === 0) {
+        if (selectedVisibilityRoomateIds.length === 0) {
             alert("Please select at least one roommate for specific visibility, or check 'Visible to All'.");
             return;
         }
     }
 
-    const newItemData = {
-        name: itemName,
-        available: isAvailable,
+    const newGroceryData = {
+        name: groceryName,
+        isAvailable: isAvailable,
         visibleToAll: visibleToAll,
-        purchasedBy: parseInt(purchasedBy),
-        visibleToUsers: selectedVisibilityUserIds
+        purchasedBy: parseInt(purchasedBy), // Parse to int, as backend expects Integer
+        visibleToRoomates: selectedVisibilityRoomateIds // Changed name
     };
 
-    console.log("New Item Data to be sent:", newItemData);
+    console.log("New Grocery Data to be sent:", newGroceryData);
 
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/items";
+    var url = "https://firsttask-jmub.onrender.com/api/groceries";
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200 || this.status === 201) {
-                alert("Item added successfully!");
+                alert("Grocery added successfully!");
                 closeAddItemModal();
                 historylist();
             } else {
-                alert("Error adding item: " + this.status + " " + this.responseText);
-                console.error("Error adding item:", this.responseText);
+                alert("Error adding grocery: " + this.status + " " + this.responseText);
+                console.error("Error adding grocery:", this.responseText);
             }
         }
     };
-    xhttp.send(JSON.stringify(newItemData));
-}
-
-function logout() {
-    window.location.replace("index.jsp");
+    xhttp.send(JSON.stringify(newGroceryData));
 }
 
 function goToIndex() {
     window.location.replace("home.jsp");
+}
+
+function logout() {
+    window.location.replace("index.jsp");
 }
 
 </script>
