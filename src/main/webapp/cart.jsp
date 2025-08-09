@@ -58,7 +58,7 @@
 <script>
 function veg() {
 	  var xhttp = new XMLHttpRequest();
-	  var url = "http://localhost:8080/api/getunv";
+	  var url = "https://firsttask-jmub.onrender.com/api/getunv";
 	  xhttp.open("GET", url, true);
 	  xhttp.setRequestHeader('Content-Type', 'application/json');
 	  xhttp.send();
@@ -108,7 +108,7 @@ function veg() {
 function gro()
 {
 	 var xhttp = new XMLHttpRequest();
-	  var url = "http://localhost:8080/api/getunvg";
+	  var url = "https://firsttask-jmub.onrender.com/api/getunvg";
 	  xhttp.open("GET", url, true);
 	  xhttp.setRequestHeader('Content-Type', 'application/json');
 	  xhttp.send();

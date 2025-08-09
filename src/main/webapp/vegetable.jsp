@@ -363,7 +363,7 @@ let loggedInUserName = null;
 function fetchLoggedInUserName()
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "http://localhost:8080/api/loginstatus";
+	var url = "https://firsttask-jmub.onrender.com/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function historylist() {
 	  var xhttp = new XMLHttpRequest();
-	  var url = "http://localhost:8080/api/getitems";
+	  var url = "https://firsttask-jmub.onrender.com/api/getitems";
 	  xhttp.open("GET", url, true);
 	  xhttp.setRequestHeader('Content-Type', 'application/json');
 	  xhttp.send();
@@ -499,7 +499,7 @@ function handleConfirmUpdate() {
     }
 
     var xhttp = new XMLHttpRequest();
-    var url = "http://localhost:8080/api/updateitems/" + currentItemId; 
+    var url = "https://firsttask-jmub.onrender.com/api/updateitems/" + currentItemId; 
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
@@ -626,7 +626,7 @@ function submitNewItem() {
     console.log("New Item Data to be sent:", newItemData);
 
     var xhttp = new XMLHttpRequest();
-    var url = "http://localhost:8080/api/items";
+    var url = "https://firsttask-jmub.onrender.com/api/items";
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
