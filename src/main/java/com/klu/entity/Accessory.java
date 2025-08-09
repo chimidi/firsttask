@@ -1,11 +1,11 @@
 package com.klu.entity;
 
 import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties; // Add this import
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "items")
-public class Items {
+@Table(name = "accessories") // Maps to the 'accessories' table
+public class Accessory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +16,16 @@ public class Items {
     private boolean isAvailable;
 
     private boolean visibleToAll;
-
-    @ManyToOne
-    @JoinColumn(name = "purchased_by")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Prevents infinite recursion during JSON serialization
+    
+    @ManyToOne // Many accessories can be purchased by one roommate
+    @JoinColumn(name = "purchased_by") // Foreign key column in 'accessories' table
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Avoid lazy loading issues in JSON
     private Roomates purchasedBy;
 
+    @Transient // Not persisted in the database, used for frontend logic
+    private boolean visibleToCurrentUser;
+
+    // --- Getters and Setters ---
     public int getId() {
 		return id;
 	}
@@ -69,12 +73,10 @@ public class Items {
 	public void setVisibleToCurrentUser(boolean visibleToCurrentUser) {
 		this.visibleToCurrentUser = visibleToCurrentUser;
 	}
-    @Transient
-    private boolean visibleToCurrentUser;
-
+    
 	@Override
 	public String toString() {
-		return "Items [id=" + id + ", name=" + name + ", isAvailable=" + isAvailable + ", visibleToAll=" + visibleToAll
+		return "Accessory [id=" + id + ", name=" + name + ", isAvailable=" + isAvailable + ", visibleToAll=" + visibleToAll
 				+ ", purchasedBy=" + purchasedBy + ", visibleToCurrentUser=" + visibleToCurrentUser + "]";
 	}
 }

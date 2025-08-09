@@ -1,5 +1,7 @@
 package com.klu.repository;
 
+ 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +17,8 @@ public interface RoomatesRepo extends JpaRepository<Roomates, Integer> {
     
     @Query("SELECT m.id FROM Roomates m WHERE m.name = :nm")
     Integer fid(@Param("nm") String nm);
+    
+  
+   
     
 }
