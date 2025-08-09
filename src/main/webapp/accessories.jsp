@@ -365,7 +365,7 @@ let loggedInUserName = null;
 function fetchLoggedInUserName()
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "https://firsttask-jmub.onrender.com/api/loginstatus";
+	var url = "http://localhost:8080/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function historylist() {
 	  var xhttp = new XMLHttpRequest();
 	  // *** IMPORTANT: API endpoint for Accessories ***
-	  var url = "https://firsttask-jmub.onrender.com/api/accessories"; 
+	  var url = "http://localhost:8080/api/accessories"; 
 	  xhttp.open("GET", url, true);
 	  xhttp.setRequestHeader('Content-Type', 'application/json');
 	  xhttp.send();
@@ -503,7 +503,7 @@ function handleConfirmUpdate() {
 
     var xhttp = new XMLHttpRequest();
     // *** IMPORTANT: API endpoint for updating Accessories ***
-    var url = "https://firsttask-jmub.onrender.com/api/accessories/update/" + currentItemId; 
+    var url = "http://localhost:8080/api/accessories/update/" + currentItemId; 
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
@@ -631,7 +631,7 @@ function submitNewItem() {
     console.log("New Accessory Data to be sent:", newItemData);
 
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/accessories"; // Specific endpoint for accessories
+    var url = "http://localhost:8080/api/accessories"; // Specific endpoint for accessories
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 

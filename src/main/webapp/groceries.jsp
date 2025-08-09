@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function historylist() {
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/groceries";
+    var url = "http://localhost:8080/api/groceries";
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
@@ -487,7 +487,7 @@ function handleConfirmUpdate() {
     }
 
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/groceries/" + currentGroceryId + "/unavailable";
+    var url = "http://localhost:8080/api/groceries/" + currentGroceryId + "/unavailable";
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 
@@ -615,7 +615,7 @@ function submitNewGrocery() {
     console.log("New Grocery Data to be sent:", newGroceryData);
 
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/groceries";
+    var url = "http://localhost:8080/api/groceries";
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
 

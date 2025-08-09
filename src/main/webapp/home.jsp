@@ -225,7 +225,7 @@ function initHomePage() {
 function fetchLoggedInUserName()
 {
 	var xhtml = new XMLHttpRequest();
-	var url = "https://firsttask-jmub.onrender.com/api/loginstatus";
+	var url = "http://localhost:8080/api/loginstatus";
 	xhtml.open("GET", url, true);
 	xhtml.setRequestHeader('Content-Type','application/json');
 	xhtml.send();
@@ -245,7 +245,7 @@ function fetchLoggedInUserName()
 // NEW: Function to fetch the unavailable item count from the server
 function fetchUnavailableItemCount() {
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/cart/count";
+    var url = "http://localhost:8080/api/cart/count";
     xhttp.open("GET", url, true);
     xhttp.send();
 
