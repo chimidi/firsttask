@@ -91,7 +91,7 @@
   function veg() {
     var xhttp = new XMLHttpRequest();
     // Use a relative URL instead of a hardcoded absolute one
-    var url = "api/getunv";
+    var url = "https://firsttask-jmub.onrender.com/api/getunv";
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
@@ -133,7 +133,7 @@
   function gro() {
     var xhttp = new XMLHttpRequest();
     // Use a relative URL instead of a hardcoded absolute one
-    var url = "api/getunvg";
+    var url = "https://firsttask-jmub.onrender.com/api/getunvg";
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
@@ -175,7 +175,7 @@
   function acc() {
     var xhttp = new XMLHttpRequest();
     // Use a relative URL instead of a hardcoded absolute one
-    var url = "api/getacunv";
+    var url = "https://firsttask-jmub.onrender.com/api/getacunv";
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
@@ -217,7 +217,7 @@
   function updateStatus(itemId) {
     var xhttp = new XMLHttpRequest();
     // Use a relative URL instead of a hardcoded absolute one
-    var url = "api/updateStatus/" + itemId;
+    var url = "https://firsttask-jmub.onrender.com/api/updateStatus/" + itemId;
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
@@ -237,7 +237,7 @@
   function updateGroceryStatus(groceryId) {
     var xhttp = new XMLHttpRequest();
     // Use the new relative URL for groceries
-    var url = "api/updateGroceryStatus/" + groceryId;
+    var url = "https://firsttask-jmub.onrender.com/api/updateGroceryStatus/" + groceryId;
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
@@ -257,7 +257,7 @@
   function updateAccessoryStatus(accessoryId) {
     var xhttp = new XMLHttpRequest();
     // Use the new relative URL for accessories
-    var url = "api/updateAccessoryStatus/" + accessoryId;
+    var url = "https://firsttask-jmub.onrender.com/api/updateAccessoryStatus/" + accessoryId;
     xhttp.open("PUT", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.send();
