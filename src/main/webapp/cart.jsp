@@ -42,7 +42,7 @@
         background-color: #45a049;
     }
     footer {
-        position: absolute;
+        position: fixed; /* Changed from absolute to fixed */
         bottom: 0;
         left: 0;
         width: 100%;
@@ -52,6 +52,7 @@
         color: #666;
         background-color: #f4f4f4;
         border-top: 1px solid #ddd;
+        z-index: 999;
     }
     
     footer a {
