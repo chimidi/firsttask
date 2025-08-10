@@ -315,7 +315,7 @@
 
   </div>
 </header>
-
+<p id="loggedInUserNameDisplay"></p>
 	<div>
 	  <ul>
 	    <li>If it is <span style="color:green;">GREEN</span>, it means the item is available. If not, just click on it to mark it as not available.</li>
