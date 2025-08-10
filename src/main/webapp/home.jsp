@@ -111,7 +111,7 @@
     }
 
     /* Count badge on top-right */
-    .cart-count {
+  .cart-count {
       position: absolute;
       top: -5px;
       right: -5px;
@@ -122,14 +122,16 @@
       height: 24px;
       border-radius: 50%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end; /* Moved to right */
       align-items: center;
+       padding-top:2px;
+      padding-left: 6px; 
+     /* Added padding to prevent text from touching the edge */
       font-weight: bold;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
       z-index: 2;
       animation: bounce 1.2s infinite;
     }
-
     @keyframes bounce {
       0%, 100% {
         transform: translateY(0);
@@ -162,6 +164,23 @@
 
     body {
       padding-top: 60px;
+    }
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 12px;
+        color: #666;
+        background-color: #f4f4f4;
+        border-top: 1px solid #ddd;
+    }
+    
+    footer a {
+        color: #007BFF;
+        text-decoration: none;
     }
   }
 </style>
@@ -215,6 +234,11 @@
 <h5>Leave a Note <br><button>Note</button></h5>
 </div>
 
+<footer>
+    <p>Developed by Loki | Copyrights by 2025</p>
+    <p>Contact: <a href="mailto:mogilisettilokesh@gmail.com">mogilisettilokesh@gmail.com</a></p>
+</footer>
+
 <script>
 // Combined onload functions into a single init function
 function initHomePage() {
@@ -245,7 +269,7 @@ function fetchLoggedInUserName()
 // NEW: Function to fetch the unavailable item count from the server
 function fetchUnavailableItemCount() {
     var xhttp = new XMLHttpRequest();
-    var url = "https://firsttask-jmub.onrender.com/api/cart/count";
+    var url = "https://firsttask-jmub.onrender.com/api/count";
     xhttp.open("GET", url, true);
     xhttp.send();
 

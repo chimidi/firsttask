@@ -286,6 +286,23 @@
     background-color: #6c757d; /* Gray for cancel */
     color: white;
 }
+footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 12px;
+        color: #666;
+        background-color: #f4f4f4;
+        border-top: 1px solid #ddd;
+    }
+    
+    footer a {
+        color: #007BFF;
+        text-decoration: none;
+    }
 </style>
 
 </head>
@@ -361,7 +378,10 @@
     </form>
   </div>
 </div>
-
+<footer>
+    <p>Developed by Loki | Copyrights by 2025</p>
+    <p>Contact: <a href="mailto:mogilisettilokesh@gmail.com">mogilisettilokesh@gmail.com</a></p>
+</footer>
 
 </body>
 <script type="text/javascript">
@@ -422,8 +442,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function historylist() {
-    var xhttp = new XMLHttpRequest();
+function historylist() 
+{
+	fetchLoggedInUserName();
+	var xhttp = new XMLHttpRequest();
     var url = "https://firsttask-jmub.onrender.com/api/groceries";
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader('Content-Type', 'application/json');
@@ -641,6 +663,27 @@ function goToIndex() {
 function logout() {
     window.location.replace("index.jsp");
 }
+
+function fetchLoggedInUserName()
+{
+	var xhtml = new XMLHttpRequest();
+	var url = "https://firsttask-jmub.onrender.com/api/loginstatus";
+	xhtml.open("GET", url, true);
+	xhtml.setRequestHeader('Content-Type','application/json');
+	xhtml.send();
+	xhtml.onreadystatechange = function()
+	{
+		if(this.readyState == 4 && this.status == 200)
+		{
+			     if(this.responseText!="index.jsp")
+		         document.getElementById("loggedInUserNameDisplay").innerHTML =this.responseText;
+			     else
+			    	window.location.replace(this.responseText);
+
+		}
+	};
+}
+
 
 </script>
 </html>

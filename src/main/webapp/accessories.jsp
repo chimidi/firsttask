@@ -282,6 +282,23 @@
     background-color: #6c757d;
     color: white;
 }
+footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 12px;
+        color: #666;
+        background-color: #f4f4f4;
+        border-top: 1px solid #ddd;
+    }
+    
+    footer a {
+        color: #007BFF;
+        text-decoration: none;
+    }
 </style>
 
 </head>
@@ -356,7 +373,10 @@
     </form>
   </div>
 </div>
-
+<footer>
+    <p>Developed by Loki | Copyrights by 2025</p>
+    <p>Contact: <a href="mailto:mogilisettilokesh@gmail.com">mogilisettilokesh@gmail.com</a></p>
+</footer>
 
 </body>
 <script type="text/javascript">
