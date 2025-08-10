@@ -125,18 +125,53 @@ public class ItemManager {
             return "error";
         }
     }
+    
+    @Transactional
+    public String makeAvailable1(int itemId, int userId) {
+        try {
+            Optional<Items> itemOptional = itemRepo.findById(itemId);
+            Optional<Roomates> userOptional = roomatesRepository.findById(userId);
 
+            if (itemOptional.isPresent() && userOptional.isPresent()) {
+                Items item = itemOptional.get();
+                Roomates purchasedBy = userOptional.get();
+                
+                // Set the item to be available and assign the purchaser
+                item.setAvailable(true);
+                item.setPurchasedBy(purchasedBy);
+                
+                itemRepo.save(item);
+                return "success";
+            } else {
+                return "not_found";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
     public List<String> getunv(int userId) {
         List<String> list = new ArrayList<String>();
-		for(Items u:itemRepo.findUnavailableItemsForUser(userId) )
+		for(Items u:itemRepo.findUnavailableItemsForUser(userId) ) {
 			list.add(toJsonString(u));
+		}
 		return list;
     }
+    
     public String toJsonString(Object obj)
 	{
 		GsonBuilder gbuilder = new GsonBuilder();
 		Gson gson = gbuilder.create();
 		return gson.toJson(obj);
 	}
+    
+    public int count(int userId)
+    {
+    	int c=0;
+    	for(Items u:itemRepo.findUnavailableItemsForUser(userId) ) {
+			c++;
+		}
+    	return c;
+    }
 	
 }

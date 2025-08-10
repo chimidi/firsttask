@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/accessories") // Base path for all accessory endpoints
-@CrossOrigin(origins = "https://firsttask-production.up.railway.app", allowCredentials = "true")
+@CrossOrigin(origins = "https://firsttask-jmub.onrender.com", allowCredentials = "true")
 public class AccessoryController {
 
     @Autowired

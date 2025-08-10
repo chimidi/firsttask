@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.security.PublicKey;
 import java.util.List;
 
 @Repository
@@ -23,7 +24,7 @@ public interface GroceryRepo extends JpaRepository<Grocery, Integer> {
     
     List<Grocery> findByIsAvailable(Boolean isAvailable);
 	Integer countByIsAvailable(Boolean isAvailable);
-	
+    
 
 
     @Query("SELECT g FROM Grocery g WHERE g.isAvailable = false AND (g.visibleToAll = true OR EXISTS (SELECT gv FROM GroceryVisible gv WHERE gv.grocery.id = g.id AND gv.roomate.id = :userId))")

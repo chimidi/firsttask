@@ -7,6 +7,9 @@ import com.klu.entity.Roomates;
 import com.klu.repository.GroceryRepo;
 import com.klu.repository.GroceryVisibleRepo;
 import com.klu.repository.RoomatesRepo;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,10 +40,20 @@ public class GroceryManager {
 
     @Autowired
     private GroceryVisibleRepo groceryVisibleRepo;
-
+    
+    @Autowired
+    Roomatesmodel rm;
+    
+    int k;
+    
+    public void p(int id)
+    {
+    	k = id;
+    }
+    
     private Integer getLoggedInRoomateId() {
         // This is a placeholder. In a real app, you'd get this from your session management.
-        return 1; // Replace with actual logged-in roomate ID retrieval
+        return k; // Replace with actual logged-in roomate ID retrieval
     }
 
     @Transactional
@@ -78,11 +91,19 @@ public class GroceryManager {
 
         List<Grocery> visibleToAllGroceries = groceryRepo.findByVisibleToAllTrue();
         List<Grocery> visibleToSpecificRoomateGroceries = groceryRepo.findByVisibleToRoomates_Roomate_Id(currentRoomateId);
-
         Set<Grocery> combinedGroceries = new HashSet<>();
         combinedGroceries.addAll(visibleToAllGroceries);
         combinedGroceries.addAll(visibleToSpecificRoomateGroceries);
+        
+        Integer currentRoomateId1 = getLoggedInRoomateId();
+        System.out.println("Logged in Roomate ID: " + currentRoomateId1); // Add this line
+        
+        List<Grocery> visibleToAllGroceries1 = groceryRepo.findByVisibleToAllTrue();
+        System.out.println("Visible to all groceries count: " + visibleToAllGroceries1.size());
 
+        List<Grocery> visibleToSpecificRoomateGroceries1 = groceryRepo.findByVisibleToRoomates_Roomate_Id(currentRoomateId1);
+        System.out.println("Visible to specific roommate groceries count: " + visibleToSpecificRoomateGroceries1.size());
+        
         return combinedGroceries.stream()
                 .map(g -> new GroceryResponse(g.getId(), g.getName(), g.getIsAvailable(), g.getPurchasedBy() != null ? g.getPurchasedBy().getName() : "Unknown"))
                 .collect(Collectors.toList());
@@ -131,6 +152,40 @@ public class GroceryManager {
     	 }
      }
     
+    public int countf(int id) {
+    	int i =0;
+    	for(Grocery u:groceryRepo.findUnavailableGroceriesForUser(id) ) {
+    		i++;
+    	}
+    	return i;
+    }
+    
+    @Transactional
+    public String makeAvailableForGrocery(Integer groceryId, Integer userId) {
+        try {
+            // Find the grocery item by its ID
+            Optional<Grocery> groceryOptional = groceryRepo.findById(groceryId);
+            // Find the roomate by their ID
+            Roomates roomate = rm.getroomate(userId);
+
+            // Check if both the grocery item and the roomate exist
+            if (groceryOptional.isPresent() && roomate != null) {
+                Grocery grocery = groceryOptional.get();
+                // Update the status and purchasedBy fields
+                grocery.setIsAvailable(true);
+                grocery.setPurchasedBy(roomate);
+                // Save the updated grocery item to the database
+                groceryRepo.save(grocery);
+                return "success";
+            } else {
+                return "not_found";
+            }
+        } catch (Exception e) {
+            // Log the exception for debugging purposes
+            e.printStackTrace();
+            return "error";
+        }
+    }
     
      public String toJsonString(Object obj)
  	{
@@ -138,4 +193,5 @@ public class GroceryManager {
  		Gson gson = gbuilder.create();
  		return gson.toJson(obj);
  	}
+     
 }
